@@ -18,7 +18,7 @@ import org.usfirst.frc157.FRC2019.Target;
 /**
  * without this comment there are 20 new errors
  */
-public class PixyController extends Thread {
+public class Pixy1Controller extends Thread {
     I2C cam;
     byte[] buffer;
     int signatures;
@@ -26,7 +26,7 @@ public class PixyController extends Thread {
     ArrayList<Target> targets = new ArrayList<Target>();
     
 
-    public PixyController(Port port, int address, int signatures)
+    public Pixy1Controller(Port port, int address, int signatures)
     {
         this.buffer = new byte[2];
         this.cam = new I2C(port, address);

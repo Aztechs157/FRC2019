@@ -17,7 +17,7 @@ import org.usfirst.frc157.FRC2019.Target;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc157.FRC2019.PixyController;
+import org.usfirst.frc157.FRC2019.Pixy1Controller;
 
 
 /**
