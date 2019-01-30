@@ -46,7 +46,14 @@ public class IntakeController extends Command {
     protected void execute() {
         double LT = Robot.oi.getJoystick().getRawAxis(Robot.oi.LT);
         double RT = Robot.oi.getJoystick().getRawAxis(Robot.oi.RT);
-        Robot.intake.move(RT <= LT?(-LT):(RT));
+        if (RT >= LT || Robot.intake.pressurePlate.get())
+        {
+            Robot.intake.move(RT);
+        }
+        else
+        {
+            Robot.intake.move((Robot.intake.pressurePlate.get())?(0):(-LT));
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
