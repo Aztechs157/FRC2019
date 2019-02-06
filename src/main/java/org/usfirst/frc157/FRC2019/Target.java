@@ -6,11 +6,8 @@ public class Target {
     public int sig;
     public double width;
     public double height;
-    public double checkSum;
-    public boolean checkCorrect;
+    public int angle;
     public boolean unread = true;
-    
-    public Target() {
-
-    }
+	public int checkSum;
+	public boolean checkCorrect;
 }
