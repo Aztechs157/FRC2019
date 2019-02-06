@@ -48,6 +48,13 @@ public class Pixy2Controller{
         }
         return retval;
     }
+    public ArrayList<Target> getCurrent() {
+        ArrayList<Target> returnArr = new ArrayList<Target>();
+        for (Target target: current) {
+            returnArr.add(target);
+        }
+        return returnArr;
+    }
     public Byte mask(int[] signatures)
     {
         byte retval = 0;
@@ -82,21 +89,25 @@ public class Pixy2Controller{
         pixy.writeBulk(writeBytes);
         packetHead = new byte[6];
         pixy.readOnly(packetHead, 6);
-        byte[] packetBody = new byte[packetHead[3]];
-        pixy.readOnly(packetBody, packetHead[3]);
-        Target[] retval = new Target[packetBody.length/14];
-        for (int i = 0; i<packetBody.length; i+= 14)
+        if (packetHead[3] > 1)
         {
-            retval[i/14] = new Target();
-            retval[i/14].sig = convertToShort(packetBody[i+0], packetBody[i+1]);
-            retval[i/14].x = convertToShort(packetBody[i+2], packetBody[i+3]);
-            retval[i/14].y = convertToShort(packetBody[i+4], packetBody[i+5]);
-            retval[i/14].width = convertToShort(packetBody[i+6], packetBody[i+7]);
-            retval[i/14].height = convertToShort(packetBody[i+8], packetBody[i+9]);
-            retval[i/14].angle = convertToShort(packetBody[i+10], packetBody[i+11]);
+            byte[] packetBody = new byte[packetHead[3]];
+            pixy.readOnly(packetBody, packetHead[3]);
+            Target[] retval = new Target[packetBody.length/14];
+            for (int i = 0; i<packetBody.length; i+= 14)
+            {
+                retval[i/14] = new Target();
+                retval[i/14].sig = convertToShort(packetBody[i+0], packetBody[i+1]);
+                retval[i/14].x = convertToShort(packetBody[i+2], packetBody[i+3]);
+                retval[i/14].y = convertToShort(packetBody[i+4], packetBody[i+5]);
+                retval[i/14].width = convertToShort(packetBody[i+6], packetBody[i+7]);
+                retval[i/14].height = convertToShort(packetBody[i+8], packetBody[i+9]);
+                retval[i/14].angle = convertToShort(packetBody[i+10], packetBody[i+11]);
+            }
+            this.current = retval;
+            return true;
         }
-        this.current = retval;
-        return true;
+        else {return false;}
 
     }
     public int unsign(byte n)
