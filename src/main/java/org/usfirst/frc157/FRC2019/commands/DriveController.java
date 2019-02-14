@@ -46,7 +46,7 @@ public class DriveController extends Command {
         double forward = Robot.oi.joystick1.getRawAxis(1) *.1;
         double turn = Robot.oi.joystick1.getRawAxis(4) *.1;
         double strafe = Robot.oi.joystick1.getRawAxis(0) *.1;
-        Robot.drive.mechDrive(forward, turn, strafe);
+       // Robot.drive.mechDrive(forward, turn, strafe);
   }
 
     // Make this return true when this Command no longer needs to run execute()

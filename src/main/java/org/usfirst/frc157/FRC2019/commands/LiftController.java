@@ -43,7 +43,10 @@ public class LiftController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        double forward = Robot.oi.joystick1.getRawAxis(3);
+        double backwards = Robot.oi.joystick1.getRawAxis(2);
     }
+
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
