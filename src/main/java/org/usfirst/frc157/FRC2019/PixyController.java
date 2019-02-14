@@ -29,7 +29,7 @@ public class PixyController extends Thread {
     public PixyController(Port port, int address, int signatures)
     {
         this.buffer = new byte[2];
-        this.cam = new I2C(port, address);
+        //this.cam = new I2C(port, address);
         this.signatures = signatures;
         this.targets = new ArrayList<Target>();
     }
