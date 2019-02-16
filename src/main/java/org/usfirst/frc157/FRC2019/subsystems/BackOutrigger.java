@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc157.FRC2019.NEO;
 import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.PID;
+import org.usfirst.frc157.FRC2019.commands.BackOutriggerController;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,9 +23,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class BackOutrigger extends Subsystem {
   
   public PID yawBackPID = new PID(0.09, 0, 0.0000001, 9999999, 9999999, 9999999, 999999);
-  public OutriggerTask liftTask = new OutriggerTask(0, 0, 0, 0);
-  public OutriggerTask climbTask = new OutriggerTask(0, 0, 0, 0);
-  public OutriggerTask antitipTask = new OutriggerTask(0, 0, 0, 0);
+  public int liftTask = 0;
+  public int climbTask = 1;
+  public int antitipTask = 2;
+  public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 0, 5),
+    new OutriggerTask(0, 0, 0, 5), new OutriggerTask(0, 0, 0, 5)};
   public NEO backOutrigger;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -36,6 +39,7 @@ public class BackOutrigger extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new BackOutriggerController());
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
