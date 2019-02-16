@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class FrontOutriggerTarget{
   private int frontTarget;
-  private float frontSpeed;
+  private double frontSpeed;
   private int tolerance;
 
-  public FrontOutriggerTarget(int frontTarget, float frontSpeed, int tolerance) {
+  public FrontOutriggerTarget(int frontTarget, double frontSpeed, int tolerance) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.frontTarget = frontTarget;

@@ -53,11 +53,18 @@ public class LiftController extends Command {
     }
     private boolean outRange()
     {
-        return true;
+        double encoder = Robot.lift.encoder.getDistance();
+        return (Lift.STARTCONSTRANGE < encoder && encoder < Lift.ENDCONSTRANGE);
     }
     private boolean upOutRange()
     {
-        return true;
+        double encoder = Robot.lift.encoder.getDistance();
+        return (Lift.STARTUPRANGE < encoder && encoder < Lift.ENDUPRANGE);
+    }
+    private boolean downOutRange()
+    {
+        double encoder = Robot.lift.encoder.getDistance();
+        return (Lift.STARTDOWNRANGE < encoder && encoder < Lift.ENDDOWNRANGE);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -72,12 +79,12 @@ public class LiftController extends Command {
             {
                 if (Robot.frontOutriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
                 {
-                    Robot.frontOutriggers.liftTask = out;
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;
                     Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
-                    Robot.frontOutriggers.liftTask = out;;
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;
                     if (movement > tolerance)
                     {
                         Robot.lift.moveLift(movement, Lift.moveType.toTop);
@@ -98,18 +105,18 @@ public class LiftController extends Command {
             {
                 if (Robot.frontOutriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
                 {
-                    Robot.frontOutriggers.liftTask = out;;
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
                     Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
-                    Robot.frontOutriggers.liftTask = in;                    
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in;                    
                     Robot.lift.moveLift(movement, moveType.toTop);
                 }
             }
             else
             {
-                Robot.frontOutriggers.liftTask = in; 
+                Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
                 if (Robot.lift.encoder.getDistance() < Lift.STARTUPRANGE)
                 {
                     Robot.lift.moveLift(movement, moveType.toUpStartPoint);
@@ -126,18 +133,18 @@ public class LiftController extends Command {
             {
                 if (Robot.frontOutriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
                 {
-                    Robot.frontOutriggers.liftTask = out;;
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
                     Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
-                    Robot.frontOutriggers.liftTask = out;;
+                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
                     Robot.lift.moveLift(movement, Lift.moveType.toBottom);
                 }
             }
             else
             {
-                Robot.frontOutriggers.liftTask = in; 
+                Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
                 if (Robot.lift.encoder.getDistance() > Lift.ENDDOWNRANGE)
                 {
                     Robot.lift.moveLift(movement, Lift.moveType.toDownEndPoint);
@@ -150,7 +157,7 @@ public class LiftController extends Command {
         }
         else
         {
-            Robot.frontOutriggers.liftTask = in; 
+            Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
             Robot.lift.moveLift(movement, Lift.moveType.hold);
         }
     }
