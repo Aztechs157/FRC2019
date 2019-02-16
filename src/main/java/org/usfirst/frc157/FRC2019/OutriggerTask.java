@@ -17,7 +17,7 @@ public class OutriggerTask {
     public int tolerance;
     public boolean accepted = false;
     public boolean finished = false;
-    public OutriggerTask(int position, int toleance, int priority, double speed)
+    public OutriggerTask(int position, int tolerance, int priority, double speed)
     {
         this.position = position;
         this.tolerance = tolerance;
