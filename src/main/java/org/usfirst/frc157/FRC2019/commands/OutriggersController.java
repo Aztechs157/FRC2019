@@ -57,7 +57,7 @@ public class OutriggersController extends Command {
         System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
         double moveFront = Robot.outriggers.yawFrontPID.pidCalculate(frontTarget, frontValue);
         double moveBack = Robot.outriggers.yawBackPID.pidCalculate(backTarget, backValue);
-        Robot.outriggers.frontOutrigger.set(moveFront * frontSpeed);
+        Robot.outriggers.frontOutrigger.set(moveFront *frontSpeed);
         Robot.outriggers.backOutrigger.set(moveBack * backSpeed);
         
     }

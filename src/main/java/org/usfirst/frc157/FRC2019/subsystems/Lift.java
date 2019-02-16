@@ -40,7 +40,7 @@ public class Lift extends Subsystem {
     public WPI_TalonSRX lift;
     public PID UpPID = new PID(0.5, 0, 0, 999999, 99999, 999999, 9999999);
     public PID DownPID = new PID(0.5, 0, 0.00001, 999999, 99999, 999999, 9999999);
-    private Encoder encoder;
+    public Encoder encoder;
     public static final float BOTTOM = 0;
     public static final float STARTUPRANGE = 1;
     public static final float STARTDOWNRANGE = 100;
@@ -49,7 +49,7 @@ public class Lift extends Subsystem {
     public static final float ENDDOWNRANGE = 110;
     public static final float ENDCONSTRANGE = 100;
     public static final float TOP = 200;
-    public enum moveType
+    public static enum moveType
     {
         hold(0),
         toUpStartPoint(STARTUPRANGE),
