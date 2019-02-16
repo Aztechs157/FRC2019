@@ -64,8 +64,8 @@ public class OutriggersController extends Command {
        // Robot.outriggers.backOutrigger.set(moveBack * backSpeed);
         OutriggerTask front= new OutriggerTask(-40, 1, 2, 0.5) ;
         OutriggerTask back= new OutriggerTask(-48, 1, 2, 0.5);
-        Robot.frontOutriggers.climbTask= front;
-        Robot.backOutriggers.climbTask= back;
+        Robot.frontOutriggers.tasks[Robot.frontOutriggers.climbTask]= front;
+        Robot.backOutriggers.tasks[Robot.frontOutriggers.climbTask]= back;
     }
 
     // Make this return true when this Command no longer needs to run execute()

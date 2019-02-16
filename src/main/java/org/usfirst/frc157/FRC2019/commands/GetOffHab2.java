@@ -83,8 +83,8 @@ public class GetOffHab2 extends Command {
       //  double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backPos);
         OutriggerTask front = new OutriggerTask(frontTarget, 1,3, 1.0);// testing new code implementation to better controll outriggers individually
         OutriggerTask back = new OutriggerTask(backTarget, 1,3, 1.0); // testing new code to implement outriggers individuallmy
-        Robot.frontOutriggers.climbTask= front;
-        Robot.backOutriggers.climbTask= back;
+        Robot.frontOutriggers.tasks[Robot.frontOutriggers.climbTask]= front;
+        Robot.backOutriggers.tasks[Robot.frontOutriggers.climbTask]= back;
     }
 
     // Make this return true when this Command no longer needs to run execute()
