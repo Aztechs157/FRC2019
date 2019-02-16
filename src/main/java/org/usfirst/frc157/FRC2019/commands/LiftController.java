@@ -13,6 +13,7 @@ package org.usfirst.frc157.FRC2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc157.FRC2019.Robot;
 import org.usfirst.frc157.FRC2019.subsystems.Lift;
+import org.usfirst.frc157.FRC2019.subsystems.Lift.moveType;
 
 /**
  *
@@ -22,6 +23,7 @@ public class LiftController extends Command {
     OutriggerTarget in = new OutriggerTarget(0, false, 1.0f, 1);
     State currentState = State.REST;
     public static final double tolerance = 0.1;
+    public static final int OUTRIGGERRANGE = 18;
     enum State
     {
         UP,
@@ -65,44 +67,57 @@ public class LiftController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double forwards = Robot.oi.joystick1.getRawAxis(3);
-        double backwards = Robot.oi.joystick1.getRawAxis(2);
-        double movement = forwards-backwards;
+        double up = Robot.oi.joystick1.getRawAxis(3);
+        double down = Robot.oi.joystick1.getRawAxis(2);
+        double movement = up-down;
         if (outRange())
         {
             if (movement < -tolerance || movement > tolerance)
             {
-                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                if (Robot.outriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
                 {
                     if (currentState != State.OUT)
                     {
                         out.initialize();
                     }
                     out.execute();
+                    Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
                     out.execute();
-                    Robot.lift.moveLift(movement, Lift.moveType.toTop);
+                    if (movement > tolerance)
+                    {
+                        Robot.lift.moveLift(movement, Lift.moveType.toTop);
+                    }
+                    else if (movement < -tolerance)
+                    {
+                        Robot.lift.moveLift(movement, Lift.moveType.toBottom);
+                    }
                 }
                 currentState = State.OUT;
+            }
+            else
+            {
+                Robot.lift.moveLift(movement, Lift.moveType.hold);
             }
         }
         else if (movement > tolerance){
             if (upOutRange())
             {
-                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                if (Robot.outriggers.frontOutrigger.getPosition() < OUTRIGGERRAMNGE)
                 {
                     if (currentState != State.UP)
                     {
                         out.initialize();
                     }
                     out.execute();
+                    Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
-                    out.execute();
-                    Robot.lift.moveLift(movement);
+                    in.execute();
+                    Robot.lift.moveLift(movement, moveType.toTop);
                 }
             }
             else
@@ -112,7 +127,14 @@ public class LiftController extends Command {
                     in.initialize();
                 }
                 in.execute();
-                Robot.lift.moveLift(movement);
+                if (Robot.lift.encoder.getDistance() < Lift.STARTUPRANGE)
+                {
+                    Robot.lift.moveLift(movement, moveType.toUpStartPoint);
+                }
+                else
+                {
+                    Robot.lift.moveLift(movement, moveType.toTop);
+                }
                 currentState = State.REST;
             }
         }
@@ -120,18 +142,19 @@ public class LiftController extends Command {
         {
             if (downOutRange())
             {
-                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                if (Robot.outriggers.frontOutrigger.getPosition() < OUTRIGGERRAMNGE)
                 {
                     if (currentState != State.DOWN)
                     {
                         out.initialize();
                     }
                     out.execute();
+                    Robot.lift.moveLift(movement, Lift.moveType.hold);
                 }
                 else
                 {
                     out.execute();
-                    Robot.lift.moveLift(movement);
+                    Robot.lift.moveLift(movement, Lift.moveType.toBottom);
                 }
                 currentState = State.DOWN;
             }
@@ -142,13 +165,21 @@ public class LiftController extends Command {
                     in.initialize();
                 }
                 in.execute();
-                Robot.lift.moveLift(movement);
+                if (Robot.lift.encoder.getDistance() > Robot.lift.ENDDOWNRANGE)
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toDownEndPoint);
+                }
+                else
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toBottom);
+                }
                 currentState = State.REST;
             }
         }
         else
         {
             in.execute();
+            Robot.lift.moveLift(movement, Lift.moveType.hold)
         }
     }
 

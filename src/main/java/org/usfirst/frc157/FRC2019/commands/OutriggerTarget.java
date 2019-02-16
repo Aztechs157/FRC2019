@@ -45,6 +45,7 @@ public class OutriggerTarget{
   public void initialize() {
     if (!useBack)
     {
+      // set backTarget to back outrigger position
       this.backTarget = (int)Math.floor(Robot.outriggers.backOutrigger.getPosition());
     }
   }
@@ -60,7 +61,10 @@ public class OutriggerTarget{
     double moveFront = Robot.outriggers.yawFrontPID.pidCalculate(frontTarget, frontValue);
     double moveBack = Robot.outriggers.yawBackPID.pidCalculate(backTarget, backValue);
     Robot.outriggers.frontOutrigger.set(moveFront * frontSpeed);
-    Robot.outriggers.backOutrigger.set(moveBack * backSpeed);
+    if (useBack)
+    {
+      Robot.outriggers.backOutrigger.set(moveBack * backSpeed);
+    }
     return isFinished();
   }
 
