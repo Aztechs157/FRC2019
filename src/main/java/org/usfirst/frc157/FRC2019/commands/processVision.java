@@ -53,33 +53,9 @@ public class processVision extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        executeNew();
-    }
-<<<<<<< HEAD
-
-    protected void executeNew() {
-=======
-    protected void executeOld() {
-        ArrayList<Target> cargo = Robot.vision.pixy.read(1);
-        if (cargo.size() > 0)
-        {
-            if (cargo.get(0) != null)
-            {
-                double forward = Robot.drive.drivePID.pidCalculate(176, (cargo.get(0).width+cargo.get(0).height)/2); //176 for cargo, 144 for
-                double turn = Robot.drive.turnPID.pidCalculate(158, cargo.get(0).x);
-                Robot.drive.tankDrive(forward, turn);
-                
-            }
-        
-        }
-        else {
-            Robot.drive.tankDrive(0,0);
-        }
+        executeNew();  
     }
     protected void executeNew() {
-        ArrayList<Target> cargo = Robot.vision.pixy.read(1);
-        Robot.intake.move(-0.3);
->>>>>>> 7f117b7620fb23cf9735af41405154ba4aab5522
       //  System.out.println("Execute");
         Robot.intake.move(-0.3);
         if (Robot.vision.pixy2.read(1))
@@ -132,11 +108,7 @@ public class processVision extends Command {
             double forward = Robot.drive.drivePID.pidCalculate(235, (cargo.get(targetIndex).width+cargo.get(targetIndex).height)/2); //176 for cargo
             double turn = Robot.drive.turnPID.pidCalculate(158, cargo.get(targetIndex).x);
             
-<<<<<<< HEAD
-            Robot.drive.tankDrive(forward*.1, turn);
-=======
             Robot.drive.tankDrive(forward*1, turn*1);
->>>>>>> 7f117b7620fb23cf9735af41405154ba4aab5522
            // System.out.println("Forward: "+ forward);
         }
         else {

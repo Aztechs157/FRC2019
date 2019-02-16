@@ -1,6 +1,7 @@
 package org.usfirst.frc157.FRC2019;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
@@ -9,7 +10,7 @@ public class NEO {
     private double ticks;
     private double offset;
 	public NEO (int port, MotorType type) {
-        motor = new CANSparkMax(7, MotorType.kBrushless);
+        motor = new CANSparkMax(port, type);
         ticks = 0;
         offset = 0;
     }
@@ -30,5 +31,11 @@ public class NEO {
     }
     public void set(double speed) {
         motor.set(speed);
+    }
+    public void setInverted(boolean bool) {
+        motor.setInverted(bool);
+    }
+    public void setIdleMode(IdleMode mode){
+        motor.setIdleMode(mode);
     }
 }
