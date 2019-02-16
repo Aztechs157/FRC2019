@@ -12,6 +12,7 @@
 package org.usfirst.frc157.FRC2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc157.FRC2019.Robot;
+import org.usfirst.frc157.FRC2019.subsystems.Lift;
 
 /**
  *
@@ -20,11 +21,13 @@ public class LiftController extends Command {
     OutriggerTarget out = new OutriggerTarget(19, false, 1.0f, 1);
     OutriggerTarget in = new OutriggerTarget(0, false, 1.0f, 1);
     State currentState = State.REST;
+    public static final double tolerance = 0.1;
     enum State
     {
         UP,
         DOWN,
-        REST
+        REST,
+        OUT
     };
 
 
@@ -67,16 +70,86 @@ public class LiftController extends Command {
         double movement = forwards-backwards;
         if (outRange())
         {
-
-            if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+            if (movement < -tolerance || movement > tolerance)
+            {
+                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                {
+                    if (currentState != State.OUT)
+                    {
+                        out.initialize();
+                    }
+                    out.execute();
+                }
+                else
+                {
+                    out.execute();
+                    Robot.lift.moveLift(movement, Lift.moveType.toTop);
+                }
+                currentState = State.OUT;
+            }
+        }
+        else if (movement > tolerance){
+            if (upOutRange())
+            {
+                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                {
+                    if (currentState != State.UP)
+                    {
+                        out.initialize();
+                    }
+                    out.execute();
+                }
+                else
+                {
+                    out.execute();
+                    Robot.lift.moveLift(movement);
+                }
+            }
+            else
             {
                 if (currentState != State.REST)
                 {
-                    
+                    in.initialize();
                 }
+                in.execute();
+                Robot.lift.moveLift(movement);
+                currentState = State.REST;
             }
         }
-        else if (upOutRange() && movement >= 0){}
+        else if (movement < -tolerance)
+        {
+            if (downOutRange())
+            {
+                if (Robot.outriggers.frontOutrigger.getPosition() < 18)
+                {
+                    if (currentState != State.DOWN)
+                    {
+                        out.initialize();
+                    }
+                    out.execute();
+                }
+                else
+                {
+                    out.execute();
+                    Robot.lift.moveLift(movement);
+                }
+                currentState = State.DOWN;
+            }
+            else
+            {
+                if (currentState != State.REST)
+                {
+                    in.initialize();
+                }
+                in.execute();
+                Robot.lift.moveLift(movement);
+                currentState = State.REST;
+            }
+        }
+        else
+        {
+            in.execute();
+        }
     }
 
 
