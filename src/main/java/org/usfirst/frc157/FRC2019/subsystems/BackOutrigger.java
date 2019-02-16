@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.usfirst.frc157.FRC2019.NEO;
+import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.PID;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,12 +22,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class BackOutrigger extends Subsystem {
   
   public PID yawBackPID = new PID(0.09, 0, 0.0000001, 9999999, 9999999, 9999999, 999999);
+  public OutriggerTask liftTask = new OutriggerTask(0, 0, 0, 0);
+  public OutriggerTask climbTask = new OutriggerTask(0, 0, 0, 0);
+  public OutriggerTask antitipTask = new OutriggerTask(0, 0, 0, 0);
   public NEO backOutrigger;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public BackOutrigger()
   {
-    
     backOutrigger = new NEO (6, MotorType.kBrushless);
     backOutrigger.setIdleMode(IdleMode.kBrake);
   }
