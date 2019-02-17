@@ -16,6 +16,7 @@ public class BackOutriggerController extends Command {
   public BackOutriggerController() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.backOutriggers);
   }
 
   // Called just before this Command runs the first time
@@ -26,6 +27,7 @@ public class BackOutriggerController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
     OutriggerTask[] tasks = Robot.backOutriggers.tasks;
     OutriggerTask mostImportant;
     int lowestIndex = 10;
@@ -41,7 +43,7 @@ public class BackOutriggerController extends Command {
     mostImportant = tasks[lowestIndex];
     Robot.backOutriggers.tasks[lowestIndex].accepted = true;
     BackOutriggerTarget target = new BackOutriggerTarget(mostImportant.position, 
-    mostImportant.speed, mostImportant.tolerance);
+    mostImportant.speed, mostImportant.tolerance, mostImportant);
     Robot.backOutriggers.tasks[lowestIndex].finished = target.execute();
   }
 

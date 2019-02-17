@@ -24,8 +24,8 @@ import org.usfirst.frc157.FRC2019.OutriggerTask;
  */
 public class LiftController extends Command {
     //move out =  FrontOutriggerTarget(19, 0f, 1);
-    OutriggerTask out = new OutriggerTask(19, 1, 2, 1f);
-    OutriggerTask in = new OutriggerTask(0, 1, 4, 1f);
+    OutriggerTask out = new OutriggerTask(19, 1, 3, 1f);
+    OutriggerTask in = new OutriggerTask(0, 1, 5, 1f);
     public static final double tolerance = 0.1;
     public static final int OUTRIGGERRANGE = 18;
 
@@ -99,67 +99,35 @@ public class LiftController extends Command {
             else
             {
                 Robot.lift.moveLift(movement, Lift.moveType.hold);
-            }
-        }
-        else if (movement > tolerance){
-            if (upOutRange())
-            {
-                if (Robot.frontOutriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
-                    Robot.lift.moveLift(movement, Lift.moveType.hold);
-                }
-                else
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in;                    
-                    Robot.lift.moveLift(movement, moveType.toTop);
-                }
-            }
-            else
-            {
-                Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
-                if (Robot.lift.encoder.getDistance() < Lift.STARTUPRANGE)
-                {
-                    Robot.lift.moveLift(movement, moveType.toUpStartPoint);
-                }
-                else
-                {
-                    Robot.lift.moveLift(movement, moveType.toTop);
-                }
-            }
-        }
-        else if (movement < -tolerance)
-        {
-            if (downOutRange())
-            {
-                if (Robot.frontOutriggers.frontOutrigger.getPosition() < OUTRIGGERRANGE)
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
-                    Robot.lift.moveLift(movement, Lift.moveType.hold);
-                }
-                else
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;;
-                    Robot.lift.moveLift(movement, Lift.moveType.toBottom);
-                }
-            }
-            else
-            {
-                Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
-                if (Robot.lift.encoder.getDistance() > Lift.ENDDOWNRANGE)
-                {
-                    Robot.lift.moveLift(movement, Lift.moveType.toDownEndPoint);
-                }
-                else
-                {
-                    Robot.lift.moveLift(movement, Lift.moveType.toBottom);
-                }
+                
             }
         }
         else
         {
+            
             Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in; 
-            Robot.lift.moveLift(movement, Lift.moveType.hold);
+            if (movement>tolerance)
+            {
+                if (Robot.lift.encoder.getDistance() > Lift.ENDCONSTRANGE)
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toTop);
+                }
+                else
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toStartConstPoint);
+                }
+            }
+            else
+            {
+                if (Robot.lift.encoder.getDistance() < Lift.STARTCONSTRANGE)
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toBottom);
+                }
+                else
+                {
+                    Robot.lift.moveLift(movement, Lift.moveType.toEndConstPoint);                
+                }
+            }
         }
     }
 

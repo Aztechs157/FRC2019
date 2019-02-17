@@ -22,12 +22,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BackOutrigger extends Subsystem {
   
-  public PID yawBackPID = new PID(0.09, 0, 0.0000001, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackPID = new PID(0.28, 0, 0.000009, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackLandingPID = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
+
   public int liftTask = 0;
   public int climbTask = 1;
   public int antitipTask = 2;
-  public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 0, 5),
-    new OutriggerTask(0, 0, 0, 5), new OutriggerTask(0, 0, 0, 5)};
+  public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 5, 0),
+    new OutriggerTask(0, 0, 5, 0), new OutriggerTask(0, 0, 5, 0)};
   public NEO backOutrigger;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

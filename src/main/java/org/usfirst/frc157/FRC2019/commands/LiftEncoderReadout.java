@@ -7,16 +7,15 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
-import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class FrontOutriggerController extends Command {
-  public FrontOutriggerController() {
+public class LiftEncoderReadout extends Command {
+  public LiftEncoderReadout() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.frontOutriggers);
+    setRunWhenDisabled(true);
   }
 
   // Called just before this Command runs the first time
@@ -27,30 +26,13 @@ public class FrontOutriggerController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    OutriggerTask[] tasks = Robot.frontOutriggers.tasks;
-    OutriggerTask mostImportant;
-    boolean[] checked = new boolean[]{false, false, false};
-    int lowestIndex = 10;
-    int lowest = 10;
-    for (int i = 0; i < tasks.length; i++)
-    {
-      if (tasks[i].priority < lowest)
-      {
-        lowest = tasks[i].priority;
-        lowestIndex = i;
-      }
-    }
-    mostImportant = tasks[lowestIndex];
-    Robot.frontOutriggers.tasks[lowestIndex].accepted = true;
-    FrontOutriggerTarget target = new FrontOutriggerTarget(mostImportant.position, 
-    mostImportant.speed, mostImportant.tolerance, mostImportant);
-    Robot.frontOutriggers.tasks[lowestIndex].finished = target.execute();
+    System.out.println(Robot.lift.encoder.getDistance());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

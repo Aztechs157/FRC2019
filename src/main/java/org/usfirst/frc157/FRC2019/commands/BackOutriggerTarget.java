@@ -7,22 +7,25 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
+import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class BackOutriggerTarget{
-  private int backTarget;
+  private double backTarget;
   private double backSpeed;
-  private int tolerance;
+  private double tolerance;
+  OutriggerTask task;
 
-  public BackOutriggerTarget(int backTarget, double speed, int tolerance) {
+  public BackOutriggerTarget(double backTarget, double speed, double tolerance, OutriggerTask mostImportant) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.backTarget = backTarget;
     this.backSpeed = speed;
     this.tolerance = tolerance;
+    this.task = mostImportant;
   }
   
 
@@ -33,7 +36,15 @@ public class BackOutriggerTarget{
 
     //Robot.outriggers.move((isA)?(-1):(1));
     //System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
-    double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backValue);
+    double moveBack;
+    if (task.landing)
+    {
+      moveBack = Robot.backOutriggers.yawBackLandingPID.pidCalculate(backTarget, backValue);
+    }
+    else
+    {
+      moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backValue);
+    }
       Robot.backOutriggers.backOutrigger.set(moveBack * backSpeed);
     return isFinished();
   }

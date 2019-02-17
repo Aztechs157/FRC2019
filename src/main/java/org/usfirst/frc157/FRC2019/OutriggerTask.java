@@ -12,12 +12,13 @@ package org.usfirst.frc157.FRC2019;
  */
 public class OutriggerTask {
     public double speed;
-    public int position;
+    public double position;
     public int priority;
-    public int tolerance;
+    public double tolerance;
+    public boolean landing = false;
     public boolean accepted = false;
     public boolean finished = false;
-    public OutriggerTask(int position, int tolerance, int priority, double speed)
+    public OutriggerTask(double position, int tolerance, int priority, double speed)
     {
         this.position = position;
         this.tolerance = tolerance;
