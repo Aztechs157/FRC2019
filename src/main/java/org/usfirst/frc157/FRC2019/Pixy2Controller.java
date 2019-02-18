@@ -30,7 +30,7 @@ public class Pixy2Controller{
     public Target[] current = {new Target()};
     public Pixy2Controller(I2C.Port port, int address)
     {
-        this.pixy = new I2C(port, address);
+        //this.pixy = new I2C(port, address);
     }
     public boolean badReadInput(int[] signatures, int maxBlocks)
     {

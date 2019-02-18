@@ -43,10 +43,12 @@ public class DriveController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double forward = Robot.oi.joystick1.getRawAxis(1);
-        double turn = Robot.oi.joystick1.getRawAxis(4);
-        double strafe = Robot.oi.joystick1.getRawAxis(0);
+        double forward = (Math.abs(Robot.oi.joystick1.getRawAxis(5))>0.04)? Robot.oi.joystick1.getRawAxis(5): 0;
+        double turn = (Math.abs(Robot.oi.joystick1.getRawAxis(4))>0.04)? Robot.oi.joystick1.getRawAxis(4)*0.7: 0;
+        double strafe = (Math.abs(Robot.oi.joystick1.getRawAxis(0))>0.04)? Robot.oi.joystick1.getRawAxis(0): 0;
         Robot.drive.mechDrive(forward, turn, strafe);
+
+        //1,4,0
   }
 
     // Make this return true when this Command no longer needs to run execute()

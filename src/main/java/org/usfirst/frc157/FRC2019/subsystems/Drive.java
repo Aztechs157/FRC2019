@@ -100,10 +100,10 @@ public class Drive extends Subsystem {
     public void tankDrive(double speed, double turn){
         double right = -speed - turn;
         double left = speed - turn;
-    //driveRight1.set(right);
-    //driveRight2.set(right);
-    //driveLeft1.set(left);
-    //driveLeft2.set(left);
+        driveRight1.set(right);
+        driveRight2.set(right);
+        driveLeft1.set(left);
+        driveLeft2.set(left);
     }
   
 
