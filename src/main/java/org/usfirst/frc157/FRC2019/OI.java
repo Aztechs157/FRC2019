@@ -96,9 +96,9 @@ public class OI {
             A.cancelWhenPressed(getOffHab2);
             B.whenPressed(getOffHab2);
             B.cancelWhenPressed(climb);
-            X.whenPressed(new EncoderReadout(Robot.frontOutriggers.frontOutrigger));
+            X.whenPressed(new Deploy());
             BOTTOM.whileHeld(new LiftController(0));
-            LEVEL1.whileHeld(new LiftController(1));
+            //LEVEL1.whileHeld(new LiftController(1));
             LEVEL2.whileHeld(new LiftController(2));
             TOP.whileHeld(new LiftController(3));
             //B.whenPressed(new EncoderReadout(Robot.backOutriggers.backOutrigger));  

@@ -49,7 +49,7 @@ public class Lift extends Subsystem {
     public static final double STARTCONSTRANGE = 1;
     public static final double ENDUPRANGE = 0;
     public static final double ENDDOWNRANGE = 15;
-    public static final double ENDCONSTRANGE = 23;
+    public static final double ENDCONSTRANGE = 25;
 
     public static final double TOP = 88;
     public static final double CARGO1 = 27;
@@ -121,7 +121,7 @@ public class Lift extends Subsystem {
             {
                 value = upPID.pidCalculate(type.height, encoder.getDistance());
             }
-            lift.set(value);
+            lift.set(value * movement);
         }
         lastMoveType = type;
     }

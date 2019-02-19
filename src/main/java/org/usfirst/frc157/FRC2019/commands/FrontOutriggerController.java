@@ -27,6 +27,7 @@ public class FrontOutriggerController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
     OutriggerTask[] tasks = Robot.frontOutriggers.tasks;
     OutriggerTask mostImportant;
     boolean[] checked = new boolean[]{false, false, false};
@@ -45,6 +46,7 @@ public class FrontOutriggerController extends Command {
     FrontOutriggerTarget target = new FrontOutriggerTarget(mostImportant.position, 
     mostImportant.speed, mostImportant.tolerance, mostImportant);
     Robot.frontOutriggers.tasks[lowestIndex].finished = target.execute();
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

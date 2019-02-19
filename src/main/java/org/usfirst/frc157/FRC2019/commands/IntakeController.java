@@ -65,8 +65,9 @@ public class IntakeController extends Command {
         }
         else
         {
-            Robot.intake.move((Robot.intake.pressurePlate.get())?(0):(-LT));
+            Robot.intake.move(-LT);
         }
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

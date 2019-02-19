@@ -10,6 +10,7 @@
 
 
 package org.usfirst.frc157.FRC2019.commands;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc157.FRC2019.Robot;
 
@@ -43,10 +44,16 @@ public class DriveController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double forward = (Math.abs(Robot.oi.joystick1.getRawAxis(5))>0.04)? Robot.oi.joystick1.getRawAxis(5): 0;
-        double turn = (Math.abs(Robot.oi.joystick1.getRawAxis(4))>0.04)? Robot.oi.joystick1.getRawAxis(4)*0.7: 0;
-        double strafe = (Math.abs(Robot.oi.joystick1.getRawAxis(0))>0.04)? Robot.oi.joystick1.getRawAxis(0): 0;
+        double joystick5 = Robot.oi.joystick1.getRawAxis(5);
+        double joystick4 = Robot.oi.joystick1.getRawAxis(4);
+        double joystick0 = Robot.oi.joystick1.getRawAxis(0);
+
+
+        double forward = (Math.abs(joystick5)>0.04)? joystick5: 0;
+        double turn = (Math.abs(joystick4)>0.04)? joystick4*0.7: 0;
+        double strafe = (Math.abs(joystick0)>0.04)? joystick0: 0;
         Robot.drive.mechDrive(forward, turn, strafe);
+
 
         //1,4,0
   }
