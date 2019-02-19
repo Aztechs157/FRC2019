@@ -9,14 +9,22 @@ package org.usfirst.frc157.FRC2019.commands;
 
 import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
+import org.usfirst.frc157.FRC2019.subsystems.FrontOutriggers;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class FrontOutriggerController extends Command {
-  public FrontOutriggerController() {
+public class Antitip extends Command {
+  public final OutriggerTask frontPos = new OutriggerTask(-34, 0, 2, 1);
+  public final OutriggerTask backPos = new OutriggerTask(-37, 0, 1, 1);
+  public final OutriggerTask nullPos = new OutriggerTask(-0, 0, 9, 1);
+  boolean front;
+  boolean back;
+  public Antitip(boolean front, boolean back) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.frontOutriggers);
+    requires(Robot.subsystem1);
+    this.front = front;
+    this.back = back;
   }
 
   // Called just before this Command runs the first time
@@ -27,32 +35,15 @@ public class FrontOutriggerController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (front){Robot.frontOutriggers.tasks[Robot.frontOutriggers.antitipTask] = frontPos;}
+    if (back){Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = backPos;}
 
-    OutriggerTask[] tasks = Robot.frontOutriggers.tasks;
-    OutriggerTask mostImportant;
-    boolean[] checked = new boolean[]{false, false, false};
-    int lowestIndex = 10;
-    int lowest = 10;
-    for (int i = 0; i < tasks.length; i++)
-    {
-      if (tasks[i].priority < lowest)
-      {
-        lowest = tasks[i].priority;
-        lowestIndex = i;
-      }
-    }
-    mostImportant = tasks[lowestIndex];
-    Robot.frontOutriggers.tasks[lowestIndex].accepted = true;
-    FrontOutriggerTarget target = new FrontOutriggerTarget(mostImportant.position, 
-    mostImportant.speed, mostImportant.tolerance, mostImportant);
-    Robot.frontOutriggers.tasks[lowestIndex].finished = target.execute();
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -64,5 +55,7 @@ public class FrontOutriggerController extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = nullPos;
+    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = nullPos;
   }
 }

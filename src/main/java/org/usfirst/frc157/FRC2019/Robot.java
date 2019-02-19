@@ -12,6 +12,7 @@
 package org.usfirst.frc157.FRC2019;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
         drive = new Drive();
         intake = new Intake();
         vision = new Vision();
+        subsystem1 = new Subsystem1();
         if (key.get())
         {
             camera = new Camera();

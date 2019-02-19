@@ -60,14 +60,23 @@ public class OI {
     public Joystick joystick2;
     public JoystickButton R1;
     public JoystickButton Y;
-    public JoystickButton BOTTOM; //A on opPad
-    public JoystickButton LEVEL1; //X on opPad
-    public JoystickButton LEVEL2; //B on opPad
-    public JoystickButton TOP; //Y on opPad
     public JoystickButton A;
     public JoystickButton X;
     public JoystickButton B;
     public JoystickButton BACK; //NUMBER!!! -4.35
+    public JoystickButton BOTTOM;
+    public JoystickButton LEVEL1;
+    public JoystickButton LEVEL2; 
+    public JoystickButton TOP; 
+    public JoystickButton HATCHINTAKE; 
+    public JoystickButton HATCHOUTAKE; 
+    public JoystickButton OSB; 
+    public JoystickButton FRONTOSB; 
+    public JoystickButton BACKOSB; 
+    public JoystickButton ALLUP; 
+    public JoystickButton ALLDOWN; 
+    public JoystickButton SWITCH; 
+    
     public boolean cargo = true;
     public static OutriggersController getOffHab2 = new OutriggersController(-54, -41, 0.65);// -40 48 for hab 2
     public static OutriggersController climb = new OutriggersController(-43, -51, 0.65);
@@ -79,30 +88,48 @@ public class OI {
         joystick1 = new Joystick(0);
         joystick2 = new Joystick(1);
         R1 = new JoystickButton(joystick1, 6);
+        SWITCH = new JoystickButton(joystick2, 16);
         R1.whenPressed(new processVision());
+        SWITCH.whenPressed(new setCargo(true));
+        SWITCH.whenReleased(new setCargo(false));
         if (Robot.key.get())
         {
+            HATCHINTAKE = new JoystickButton(joystick2, 15); 
+            HATCHOUTAKE = new JoystickButton(joystick2, 14); 
+            OSB = new JoystickButton(joystick2, 3); 
+            FRONTOSB = new JoystickButton(joystick2, 5); 
+            BACKOSB = new JoystickButton(joystick2, 2); 
+            ALLUP = new JoystickButton(joystick2, 4); 
+            ALLDOWN = new JoystickButton(joystick2, 1); 
             Y = new JoystickButton(joystick1, 4);
             A = new JoystickButton(joystick1, 1);
             X = new JoystickButton(joystick1, 3);
             B = new JoystickButton(joystick1, 2);
             BACK = new JoystickButton(joystick1, 7);
-            BOTTOM = new JoystickButton(joystick2, 1);
-            LEVEL1 = new JoystickButton(joystick2, 3);
-            LEVEL2 = new JoystickButton(joystick2, 2);
-            TOP = new JoystickButton(joystick2, 4);
+            BOTTOM = new JoystickButton(joystick2, 9);
+            LEVEL1 = new JoystickButton(joystick2, 11);
+            LEVEL2 = new JoystickButton(joystick2, 12);
+            TOP = new JoystickButton(joystick2, 13);
             Y.whenPressed(new OutriggerLand(0.25));
             A.whenPressed(climb);//-40 48 for hab 2
             A.cancelWhenPressed(getOffHab2);
             B.whenPressed(getOffHab2);
             B.cancelWhenPressed(climb);
-            X.whenPressed(new EncoderReadout(Robot.frontOutriggers.frontOutrigger));
+            X.whenPressed(new Deploy());
             BOTTOM.whileHeld(new LiftController(0));
             LEVEL1.whileHeld(new LiftController(1));
             LEVEL2.whileHeld(new LiftController(2));
             TOP.whileHeld(new LiftController(3));
             //B.whenPressed(new EncoderReadout(Robot.backOutriggers.backOutrigger));  
             BACK.whenPressed(new LiftEncoderReadout());      
+            HATCHINTAKE.whileHeld(new LiftController(3, LiftController.Intake.in)); 
+            HATCHOUTAKE.whileHeld(new LiftController(-3, LiftController.Intake.out)); 
+            OSB.whileHeld(new Antitip(true, true)); 
+            FRONTOSB.whileHeld(new Antitip(true, false)); 
+            BACKOSB.whileHeld(new Antitip(false, true)); 
+            //ALLUP.whileHeld(new); 
+            //ALLDOWN.whileHeld(new); 
+
             Robot.frontOutriggers.frontOutrigger.tare();
             Robot.backOutriggers.backOutrigger.tare();
         }

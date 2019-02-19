@@ -9,7 +9,7 @@ public class PID {
 	private double epsilonInner;
 	private double epsilonOuter;
 	private double lastTime;
-	private double lastValue;
+	private double lastValue;  
 	private double sigma;
 	private double dInner;
 	private double dOuter;
