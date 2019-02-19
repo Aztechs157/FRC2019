@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
         drive = new Drive();
         intake = new Intake();
         vision = new Vision();
+        subsystem1 = new Subsystem1();
         if (key.get())
         {
             camera = new Camera();

@@ -44,8 +44,8 @@ public class IntakeController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double LT = Robot.oi.joystick2.getRawAxis(Robot.oi.LT);
-        double RT = Robot.oi.joystick2.getRawAxis(Robot.oi.RT);
+        double LT = Robot.oi.joystick1.getRawAxis(Robot.oi.LT);
+        double RT = Robot.oi.joystick1.getRawAxis(Robot.oi.RT);
         double movement = RT-LT;
         double tolerance = 0.1;
         if (Robot.intake.pressurePlate.get())
