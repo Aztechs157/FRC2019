@@ -63,8 +63,8 @@ public class GetOffHab2 extends Command {
 
         switch (state) {
             case lower:
-                frontTarget = -54;
-                backTarget = -41;
+                frontTarget = -50;
+                backTarget = -37;
                 if (Math.abs(frontPos-frontTarget)<3 && Math.abs(backPos-backTarget) < 3) {
                     state = states.drive;
                     startTime = Timer.getFPGATimestamp();

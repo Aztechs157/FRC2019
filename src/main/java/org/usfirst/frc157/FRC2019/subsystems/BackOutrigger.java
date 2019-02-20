@@ -28,8 +28,8 @@ public class BackOutrigger extends Subsystem {
   public int liftTask = 0;
   public int climbTask = 1;
   public int antitipTask = 2;
-  public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 5, 0),
-    new OutriggerTask(0, 0, 5, 0), new OutriggerTask(0, 0, 5, 0)};
+  public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 9, 0),
+    new OutriggerTask(0, 0, 9, 0), new OutriggerTask(0, 0, 9, 0)};
   public NEO backOutrigger;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

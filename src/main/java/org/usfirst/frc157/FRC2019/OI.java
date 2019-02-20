@@ -122,11 +122,14 @@ public class OI {
             TOP.whileHeld(new LiftController(3));
             //B.whenPressed(new EncoderReadout(Robot.backOutriggers.backOutrigger));  
             BACK.whenPressed(new LiftEncoderReadout());      
-            HATCHINTAKE.whileHeld(new LiftController(3, LiftController.Intake.in)); 
-            HATCHOUTAKE.whileHeld(new LiftController(-3, LiftController.Intake.out)); 
-            OSB.whileHeld(new Antitip(true, true)); 
-            FRONTOSB.whileHeld(new Antitip(true, false)); 
-            BACKOSB.whileHeld(new Antitip(false, true)); 
+            HATCHINTAKE.whenPressed(new hatchIntake(true)); 
+            HATCHOUTAKE.whenPressed(new hatchIntake(false)); 
+            OSB.whenPressed(new Antitip(true, true)); 
+            FRONTOSB.whenPressed(new Antitip(true, false)); 
+            BACKOSB.whenPressed(new Antitip(false, true)); 
+            OSB.whenReleased(new CancelAntiTip());
+            FRONTOSB.whenReleased(new CancelAntiTip());
+            BACKOSB.whenReleased(new CancelAntiTip());
             //ALLUP.whileHeld(new); 
             //ALLDOWN.whileHeld(new); 
 

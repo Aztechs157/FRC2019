@@ -7,49 +7,47 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
-import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
-import org.usfirst.frc157.FRC2019.subsystems.FrontOutriggers;
+import org.usfirst.frc157.FRC2019.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Antitip extends Command {
-  public final OutriggerTask frontPos = new OutriggerTask(-34, 0, 2, 0.6);
-  public final OutriggerTask backPos = new OutriggerTask(-30, 0, 2, 0.6);
-  public static final OutriggerTask nullPos = new OutriggerTask(0, 0, 8, 0.6);
-  boolean front;
-  boolean back;
-  public Antitip(boolean front, boolean back) {
+public class hatchIntake extends Command {
+  private boolean in;
+  double targetPos;
+
+  public hatchIntake(boolean in) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.subsystem1);
-    this.front = front;
-    this.back = back;
+    requires(Robot.lift);
+    this.in = in;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    targetPos = Robot.lift.encoder.getDistance();
+    targetPos += (in)?8:-4;
+    targetPos = (targetPos > Lift.TOP)?Lift.TOP:targetPos;
+    targetPos = (targetPos < Lift.BOTTOM)?Lift.BOTTOM:targetPos;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (front){Robot.frontOutriggers.tasks[Robot.frontOutriggers.antitipTask] = frontPos;}
-    if (back){Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = backPos;}
+    Robot.lift.moveLift(1, targetPos);
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
   }
 
   // Called when another command which requires one or more of the same

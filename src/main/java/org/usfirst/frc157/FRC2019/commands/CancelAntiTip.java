@@ -7,24 +7,15 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
-import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
-import org.usfirst.frc157.FRC2019.subsystems.FrontOutriggers;
+import org.usfirst.frc157.FRC2019.commands.Antitip;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Antitip extends Command {
-  public final OutriggerTask frontPos = new OutriggerTask(-34, 0, 2, 0.6);
-  public final OutriggerTask backPos = new OutriggerTask(-30, 0, 2, 0.6);
-  public static final OutriggerTask nullPos = new OutriggerTask(0, 0, 8, 0.6);
-  boolean front;
-  boolean back;
-  public Antitip(boolean front, boolean back) {
+public class CancelAntiTip extends Command {
+  public CancelAntiTip() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.subsystem1);
-    this.front = front;
-    this.back = back;
   }
 
   // Called just before this Command runs the first time
@@ -35,9 +26,8 @@ public class Antitip extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (front){Robot.frontOutriggers.tasks[Robot.frontOutriggers.antitipTask] = frontPos;}
-    if (back){Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = backPos;}
-
+    Robot.frontOutriggers.tasks[Robot.backOutriggers.antitipTask] = Antitip.nullPos;
+    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = Antitip.nullPos;
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -49,7 +39,6 @@ public class Antitip extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
   }
 
   // Called when another command which requires one or more of the same

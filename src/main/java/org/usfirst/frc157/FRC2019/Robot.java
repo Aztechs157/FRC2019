@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         if (key.get())
         {
-            Robot.lift.holdPosition = Robot.lift.encoder.get();
+            Robot.lift.holdPosition = Robot.lift.encoder.getDistance();
         }
     }
 
