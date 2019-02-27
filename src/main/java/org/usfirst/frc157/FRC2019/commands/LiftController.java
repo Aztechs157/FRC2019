@@ -79,87 +79,22 @@ public class LiftController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        System.out.println(Robot.frontOutriggers.frontOutrigger.getPosition());
         double movement = target-Robot.lift.encoder.getDistance();
         tolerance = 0;
         if (Robot.oi.cargo)
         {
-            if (outRange())
-            {
-                if (movement < -tolerance || movement > tolerance)
-                {
-                    if (Robot.frontOutriggers.frontOutrigger.getPosition() > OUTRIGGERRANGE)
-                    {
-                        Robot.lift.moveLift(0.85, Lift.moveType.hold);
-                    }
-                    else
-                    {
-                        
-                        if (movement > tolerance)
-                        {
-                            Robot.lift.moveLift(0.85, cargoTarget[target]);
-                        }
-                        else if (movement < -tolerance)
-                        {
-                            Robot.lift.moveLift(0.85, cargoTarget[target]);
-                        }
-                        else
-                        {
-                            Robot.lift.moveLift(0.85, Lift.moveType.hold);
-                        }
-                    }
-                }
-                else
-                {
-                    Robot.lift.moveLift(0.85, Lift.moveType.hold);
-                }
-                Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;
+            Robot.lift.moveLift(0.85, cargoTarget[target]);
+            Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = in;
 
-            }
-            else if (Robot.lift.encoder.getDistance() <= Lift.STARTCONSTRANGE && movement > tolerance)
-            {
-                if (Robot.frontOutriggers.frontOutrigger.getPosition() > OUTRIGGERRANGE)
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;
-                    Robot.lift.moveLift(0.85, Lift.moveType.hold);
-                }
-                else
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out;
-                    Robot.lift.moveLift(0.85, cargoTarget[target]);
-                }
-            }
-            else
-            {
-                
-                
-                if (movement>tolerance)
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out; 
-                    Robot.lift.moveLift(0.85, cargoTarget[target]);
-
-                }
-                else if (movement < -tolerance-2)
-                {
-                    
-                    Robot.lift.moveLift(0.85,cargoTarget[target]);
-                    
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out; 
-                }
-                else
-                {
-                    Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = out; 
-                    Robot.lift.moveLift(0.85, cargoTarget[target]);
-                }
-            }
-            
         }
         else
         {
             double tolerance2=0.3;
             
-            if (Robot.frontOutriggers.frontOutrigger.getPosition() > FrontOutriggers.hatchTarget - tolerance2
-            && Robot.frontOutriggers.frontOutrigger.getPosition() < FrontOutriggers.hatchTarget+tolerance2)
+            if (Robot.frontOutriggers.frontOutrigger1.getPosition() > FrontOutriggers.hatchTarget - tolerance2
+            && Robot.frontOutriggers.frontOutrigger1.getPosition() < FrontOutriggers.hatchTarget+tolerance2
+            && Robot.frontOutriggers.frontOutrigger2.getPosition() > FrontOutriggers.hatchTarget - tolerance2
+            && Robot.frontOutriggers.frontOutrigger2.getPosition() < FrontOutriggers.hatchTarget+tolerance2)
             {
                 Robot.lift.moveLift(0.85, hatchTarget[target]);
             }
@@ -170,6 +105,7 @@ public class LiftController extends Command {
             
             Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = hatchPos;
         }
+
         
     }
 

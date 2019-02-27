@@ -30,13 +30,17 @@ public class BackOutrigger extends Subsystem {
   public int antitipTask = 2;
   public OutriggerTask[] tasks = new OutriggerTask[]{new OutriggerTask(0, 0, 9, 0),
     new OutriggerTask(0, 0, 9, 0), new OutriggerTask(0, 0, 9, 0)};
-  public NEO backOutrigger;
-  // Put methods for controlling this subsystem
+    public NEO backOutrigger1;
+    public NEO backOutrigger2;
+    // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public BackOutrigger()
   {
-    backOutrigger = new NEO (6, MotorType.kBrushless);
-    backOutrigger.setIdleMode(IdleMode.kBrake);
+    backOutrigger1 = new NEO (6, MotorType.kBrushless);
+    backOutrigger1.setIdleMode(IdleMode.kBrake);
+    backOutrigger2 = new NEO (6, MotorType.kBrushless);
+    backOutrigger2.setIdleMode(IdleMode.kBrake);
+    backOutrigger2.setInverted(true);
   }
 
   @Override

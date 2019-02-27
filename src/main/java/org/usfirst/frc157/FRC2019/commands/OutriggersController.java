@@ -55,11 +55,6 @@ public class OutriggersController extends Command {
     @Override
     protected void execute()
     {
-        double frontValue = Robot.frontOutriggers.frontOutrigger.getPosition();
-        double backValue = Robot.backOutriggers.backOutrigger.getPosition();
-
-        //Robot.outriggers.move((isA)?(-1):(1));
-        System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
        // double moveFront = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, frontValue);
         //double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backValue);
       //  Robot.outriggers.frontOutrigger.set(moveFront *frontSpeed);

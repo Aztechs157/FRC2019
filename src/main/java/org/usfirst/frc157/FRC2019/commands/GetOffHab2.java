@@ -58,14 +58,18 @@ public class GetOffHab2 extends Command {
     @Override
     protected void execute()
     {
-        double frontPos = Robot.frontOutriggers.frontOutrigger.getPosition();
-        double backPos = Robot.backOutriggers.backOutrigger.getPosition();
+        double front1Pos = Robot.frontOutriggers.frontOutrigger1.getPosition();
+        double front2Pos = Robot.frontOutriggers.frontOutrigger1.getPosition();
+
+        double back1Pos = Robot.backOutriggers.backOutrigger1.getPosition();
+        double back2Pos = Robot.backOutriggers.backOutrigger1.getPosition();
 
         switch (state) {
             case lower:
                 frontTarget = -50;
                 backTarget = -37;
-                if (Math.abs(frontPos-frontTarget)<3 && Math.abs(backPos-backTarget) < 3) {
+                if (Math.abs(front1Pos-frontTarget)<3 && Math.abs(back1Pos-backTarget) < 3 
+                && Math.abs(front2Pos-frontTarget)<3 && Math.abs(back2Pos-backTarget) < 3) {
                     state = states.drive;
                     startTime = Timer.getFPGATimestamp();
                 }
@@ -78,7 +82,8 @@ public class GetOffHab2 extends Command {
             case raise:
                 frontTarget = 0;
                 backTarget = 0;
-                if (Math.abs(frontPos-frontTarget)<3 && Math.abs(backPos-backTarget) < 3) {
+                if (Math.abs(front1Pos-frontTarget)<3 && Math.abs(back1Pos-backTarget) < 3 
+                && Math.abs(front2Pos-frontTarget)<3 && Math.abs(back2Pos-backTarget) < 3) {
                     state = states.done;
                 }
                 break;

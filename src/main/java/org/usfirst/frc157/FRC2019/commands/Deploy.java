@@ -64,8 +64,12 @@ public class Deploy extends Command {
     @Override
     protected void execute()
     {
-        double frontPos = Robot.frontOutriggers.frontOutrigger.getPosition();
-        double backPos = Robot.backOutriggers.backOutrigger.getPosition();
+        double front1Pos = Robot.frontOutriggers.frontOutrigger1.getPosition();
+        double front2Pos = Robot.frontOutriggers.frontOutrigger1.getPosition();
+
+        double back1Pos = Robot.backOutriggers.backOutrigger1.getPosition();
+        double back2Pos = Robot.backOutriggers.backOutrigger1.getPosition();
+
 
         double liftPos = Robot.lift.encoder.getDistance();
         OutriggerTask front =  new OutriggerTask(frontTarget, 1,1, 1.0);
@@ -76,7 +80,8 @@ public class Deploy extends Command {
             case raiseRobot:
                 frontTarget = -54;
                 backTarget = -41;
-                if (Math.abs(frontPos-frontTarget)<3 && Math.abs(backPos-backTarget) < 3) {
+                if (Math.abs(front1Pos-frontTarget)<3 && Math.abs(back1Pos-backTarget) < 3 
+                    && Math.abs(front2Pos-frontTarget)<3 && Math.abs(back2Pos-backTarget) < 3) {
                     state = states.driveRobot;
                     startTime = Timer.getFPGATimestamp();
                 }
@@ -107,7 +112,8 @@ public class Deploy extends Command {
             case lowerRobot:
                 frontTarget = -40;
                 backTarget = -28;
-                if (Math.abs(frontPos-frontTarget)<2 && Math.abs(backPos-backTarget) < 2) {
+                if (Math.abs(front1Pos-frontTarget)<2 && Math.abs(back1Pos-backTarget) < 2 
+                    && Math.abs(front2Pos-frontTarget)<3 && Math.abs(back2Pos-backTarget) < 3) {
                     state = states.wait;
 
                     startTime = Timer.getFPGATimestamp();
@@ -129,7 +135,8 @@ public class Deploy extends Command {
             case raiseOutriggers:
                 frontTarget = -2;
                 backTarget = -2;
-                if (Math.abs(frontPos-frontTarget)<3 && Math.abs(backPos-backTarget) < 3) {
+                if (Math.abs(front1Pos-frontTarget)<3 && Math.abs(back1Pos-backTarget) < 3 
+                    && Math.abs(front2Pos-frontTarget)<3 && Math.abs(back2Pos-backTarget) < 3) {
                     state = states.done;
                 }
                 front = new OutriggerTask(frontTarget, 1,1, 0.7);
@@ -141,7 +148,7 @@ public class Deploy extends Command {
         //Robot.outriggers.move((isA)?(-1):(1));
       //  System.out.println("\n------\n" + value + "\n" + target);
      //   double moveFront = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, frontPos);
-      //  double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backPos);
+      //  double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, back1Pos);
         Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask]= front;
         Robot.backOutriggers.tasks[Robot.backOutriggers.liftTask]= back;
 

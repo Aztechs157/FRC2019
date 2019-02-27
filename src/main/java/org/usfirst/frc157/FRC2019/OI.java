@@ -133,8 +133,10 @@ public class OI {
             //ALLUP.whileHeld(new); 
             //ALLDOWN.whileHeld(new); 
 
-            Robot.frontOutriggers.frontOutrigger.tare();
-            Robot.backOutriggers.backOutrigger.tare();
+            Robot.frontOutriggers.frontOutrigger1.tare();
+            Robot.frontOutriggers.frontOutrigger2.tare();
+            Robot.backOutriggers.backOutrigger1.tare();
+            Robot.backOutriggers.backOutrigger2.tare();
         }
 
 

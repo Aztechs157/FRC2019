@@ -30,19 +30,21 @@ public class OutriggerLand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double frontValue = Robot.frontOutriggers.frontOutrigger.getPosition();
-    double backValue = Robot.backOutriggers.backOutrigger.getPosition();
+    //double frontValue = Robot.frontOutriggers.frontOutrigger.getPosition();
+    //double backValue = Robot.backOutriggers.backOutrigger.getPosition();
 
     //Robot.outriggers.move((isA)?(-1):(1));
-    System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
+    //System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
    // double moveFront = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, frontValue);
     //double moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backValue);
   //  Robot.outriggers.frontOutrigger.set(moveFront *frontSpeed);
    // Robot.outriggers.backOutrigger.set(moveBack * backSpeed);
     OutriggerTask front;
     OutriggerTask back;
-    if (Robot.frontOutriggers.frontOutrigger.getPosition() > -36 && 
-    Robot.backOutriggers.backOutrigger.getPosition() > -40)
+    if (Robot.frontOutriggers.frontOutrigger1.getPosition() > -36 && 
+    Robot.frontOutriggers.frontOutrigger2.getPosition() > -36 && 
+    Robot.backOutriggers.backOutrigger1.getPosition() > -40 &&
+    Robot.backOutriggers.backOutrigger2.getPosition() > -40)
     {
       front= new OutriggerTask(0, 1, 4, 1);
       back= new OutriggerTask(0, 1, 4, 1);

@@ -33,36 +33,15 @@ public class LiftHold extends Command {
   @Override
   protected void execute() {
     Robot.lift.moveLift(1, Lift.moveType.hold);
-    if (!Robot.oi.cargo)
+    if (Robot.oi.cargo)
     {
-      if (Robot.lift.encoder.getDistance() > Lift.HATCH1-3)
-      {
-        Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;
-      }
-      else
-      {
-        if (Robot.frontOutriggers.frontOutrigger.getPosition() > LiftController.OUTRIGGERRANGE)
-        {
-          Robot.lift.moveLift(0.7, Lift.moveType.hold);
-        }
-        else
-        {
-          Robot.lift.moveLift(0.7, Lift.HATCH2);
-        }
-        Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.out;
-      }
+      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.in;
     }
     else
-    {  
-      if (outRange())
-      {
-        Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.out;
-      }
-      else
-      {
-        Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.in;
-      }  
+    {
+      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
     }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
