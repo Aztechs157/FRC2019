@@ -32,26 +32,32 @@ public class BackOutriggerTarget{
   // Called repeatedly when this Command is scheduled to run
   public boolean execute() {
     
-    double backValue = Robot.backOutriggers.backOutrigger.getPosition();
+    double rightValue = Robot.backOutriggers.backOutrigger1.getPosition();
+    double leftValue = Robot.backOutriggers.backOutrigger2.getPosition();
 
     //Robot.outriggers.move((isA)?(-1):(1));
-    //System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
-    double moveBack;
+    //System.out.println("\n------\nback: " + backValue + "\nBack: " + backValue);
+    double moveRight;
+    double moveLeft;
     if (task.landing)
     {
-      moveBack = Robot.backOutriggers.yawBackLandingPID.pidCalculate(backTarget, backValue);
+      moveRight = Robot.backOutriggers.yawBackLandingPID.pidCalculate(backTarget, rightValue);
+      moveLeft = Robot.backOutriggers.yawBackLandingPID.pidCalculate(backTarget, leftValue);
     }
     else
     {
-      moveBack = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, backValue);
+      moveRight = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, rightValue);
+      moveLeft = Robot.backOutriggers.yawBackPID.pidCalculate(backTarget, leftValue);
     }
-      Robot.backOutriggers.backOutrigger.set(moveBack * backSpeed);
+    Robot.backOutriggers.backOutrigger1.set(moveRight * backSpeed);
+    Robot.backOutriggers.backOutrigger2.set(moveLeft * backSpeed);
     return isFinished();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   public boolean isFinished() {
-    return (Math.abs(backTarget-Robot.backOutriggers.backOutrigger.getPosition())<tolerance);
+    return (Math.abs(backTarget-Robot.backOutriggers.backOutrigger1.getPosition())+
+    Math.abs(backTarget-Robot.backOutriggers.backOutrigger2.getPosition()))<tolerance;
   }
 
 }
