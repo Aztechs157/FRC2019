@@ -44,7 +44,7 @@ public class DriveController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double joystick5 = Robot.oi.joystick1.getRawAxis(5);
+        double joystick5 = Robot.oi.joystick1.getRawAxis(1); //1 for Zach, 5 for Brian
         double joystick4 = Robot.oi.joystick1.getRawAxis(4);
         double joystick0 = Robot.oi.joystick1.getRawAxis(0);
 

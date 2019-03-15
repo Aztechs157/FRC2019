@@ -26,7 +26,7 @@ public class CancelAntiTip extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.frontOutriggers.tasks[Robot.backOutriggers.antitipTask] = Antitip.nullPos;
+    Robot.frontOutriggers.tasks[Robot.frontOutriggers.antitipTask] = Antitip.nullPos;
     Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = Antitip.nullPos;
   }
 

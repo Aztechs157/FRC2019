@@ -41,13 +41,13 @@ public class FrontOutriggerTarget{
     double moveLeft;
     if (task.landing)
     {
-      moveRight = Robot.frontOutriggers.yawFrontLandingPID.pidCalculate(frontTarget, rightValue);
-      moveLeft = Robot.frontOutriggers.yawFrontLandingPID.pidCalculate(frontTarget, leftValue);
+      moveRight = Robot.frontOutriggers.yawFrontLandingPID1.pidCalculate(frontTarget, rightValue);
+      moveLeft = Robot.frontOutriggers.yawFrontLandingPID2.pidCalculate(frontTarget, leftValue);
     }
     else
     {
-      moveRight = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, rightValue);
-      moveLeft = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, leftValue);
+      moveRight = Robot.frontOutriggers.yawFrontPID1.pidCalculate(frontTarget, rightValue);
+      moveLeft = Robot.frontOutriggers.yawFrontPID2.pidCalculate(frontTarget, leftValue);
     }
     Robot.frontOutriggers.frontOutrigger1.set(moveRight * frontSpeed);
     Robot.frontOutriggers.frontOutrigger2.set(moveLeft * frontSpeed);

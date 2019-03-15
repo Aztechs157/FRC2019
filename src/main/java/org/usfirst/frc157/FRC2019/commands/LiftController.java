@@ -96,13 +96,13 @@ public class LiftController extends Command {
             && Robot.frontOutriggers.frontOutrigger2.getPosition() > FrontOutriggers.hatchTarget - tolerance2
             && Robot.frontOutriggers.frontOutrigger2.getPosition() < FrontOutriggers.hatchTarget+tolerance2)
             {
-                Robot.lift.moveLift(0.85, hatchTarget[target]);
+                
             }
             else
             {
-                Robot.lift.moveLift(0.85, Lift.moveType.hold);
+                //Robot.lift.moveLift(0.85, Lift.moveType.hold);
             }
-            
+            Robot.lift.moveLift(0.85, hatchTarget[target]);
             Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = hatchPos;
         }
 

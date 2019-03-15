@@ -22,8 +22,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BackOutrigger extends Subsystem {
   
-  public PID yawBackPID = new PID(0.28, 0, 0.000009, 9999999, 9999999, 9999999, 999999);
-  public PID yawBackLandingPID = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackPID1 = new PID(0.1, 0, 0.000002, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackPID2 = new PID(0.1, 0, 0.000002, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackLandingPID1 = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
+  public PID yawBackLandingPID2 = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
 
   public int liftTask = 0;
   public int climbTask = 1;
@@ -34,11 +36,11 @@ public class BackOutrigger extends Subsystem {
     public NEO backOutrigger2;
     // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public BackOutrigger()
+  public BackOutrigger() 
   {
-    backOutrigger1 = new NEO (6, MotorType.kBrushless);
+    backOutrigger1 = new NEO (6, MotorType.kBrushless); 
     backOutrigger1.setIdleMode(IdleMode.kBrake);
-    backOutrigger2 = new NEO (6, MotorType.kBrushless);
+    backOutrigger2 = new NEO (8, MotorType.kBrushless); 
     backOutrigger2.setIdleMode(IdleMode.kBrake);
     backOutrigger2.setInverted(true);
   }
