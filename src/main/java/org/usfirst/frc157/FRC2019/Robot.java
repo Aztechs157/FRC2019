@@ -60,9 +60,9 @@ public class Robot extends TimedRobot {
         intake = new Intake();
         vision = new Vision();
         subsystem1 = new Subsystem1();
+        camera = new Camera();
         if (key.get())
         {
-            camera = new Camera();
             lift = new Lift();
             frontOutriggers = new FrontOutriggers();
             backOutriggers = new BackOutrigger();
@@ -119,9 +119,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
+        // autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        // if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -129,7 +129,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+        //Scheduler.getInstance().run();
+        teleopPeriodic();
     }
 
     @Override

@@ -51,11 +51,12 @@ public class Lift extends Subsystem {
     public static final double ENDDOWNRANGE = 15;
     public static final double ENDCONSTRANGE = 23;
 
-    public static final double TOP = 88;
+    public static final double TOP = 92;
     public static final double CARGO1 = 27;
     public static final double CARGO2 = 61;
     public static final double CARGOSHIP = 46.5;
     public static final double HATCH1 = 15;
+    public static final double HATCHINTAKE = 11; //hatch intake was too low
     public static final double HATCH2 = 49.5;
     public static final double HATCH3 = 84;
     

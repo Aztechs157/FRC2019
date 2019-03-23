@@ -14,8 +14,8 @@ import org.usfirst.frc157.FRC2019.subsystems.FrontOutriggers;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Antitip extends Command {
-  public final OutriggerTask frontPos = new OutriggerTask(-34, 0, 2, 0.85);
-  public final OutriggerTask backPos = new OutriggerTask(-30, 0, 2, 0.85);
+  public final OutriggerTask frontPos = new OutriggerTask(-36, 0, 2, 0.85);
+  public final OutriggerTask backPos = new OutriggerTask(-36, 0, 2, 0.85);
   public static final OutriggerTask nullPos = new OutriggerTask(0, 0, 8, 0.85);
   boolean front;
   boolean back;

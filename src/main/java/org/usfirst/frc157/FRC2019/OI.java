@@ -115,9 +115,9 @@ public class OI {
             A.cancelWhenPressed(getOffHab2);
             B.whenPressed(new Antitip(true, false));
             B.whenReleased(new CancelAntiTip());
-            X.whenPressed(new Deploy());
-            //X.whenPressed(new Antitip(false, true));
-            //X.whenReleased(new CancelAntiTip());
+            //X.whenPressed(new Deploy());
+            X.whenPressed(new Antitip(false, true));
+            X.whenReleased(new CancelAntiTip());
             BOTTOM.whileHeld(new LiftController(0));
             LEVEL1.whileHeld(new LiftController(1));
             LEVEL2.whileHeld(new LiftController(2));
