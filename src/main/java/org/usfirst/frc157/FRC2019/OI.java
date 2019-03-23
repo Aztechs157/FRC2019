@@ -97,10 +97,10 @@ public class OI {
             HATCHINTAKE = new JoystickButton(joystick2, 15); 
             HATCHOUTAKE = new JoystickButton(joystick2, 14); 
             OSB = new JoystickButton(joystick2, 3); 
-            FRONTOSB = new JoystickButton(joystick2, 5); 
-            BACKOSB = new JoystickButton(joystick2, 2); 
-            ALLUP = new JoystickButton(joystick2, 4); 
-            ALLDOWN = new JoystickButton(joystick2, 1); 
+            FRONTOSB = new JoystickButton(joystick2, 4); 
+            BACKOSB = new JoystickButton(joystick2, 1); 
+            ALLUP = new JoystickButton(joystick2, 5); 
+            ALLDOWN = new JoystickButton(joystick2, 2); 
             Y = new JoystickButton(joystick1, 4);
             A = new JoystickButton(joystick1, 1);
             X = new JoystickButton(joystick1, 3);
@@ -113,25 +113,32 @@ public class OI {
             Y.whenPressed(new OutriggerLand(0.25));
             A.whenPressed(climb);//-40 48 for hab 2
             A.cancelWhenPressed(getOffHab2);
-            B.whenPressed(getOffHab2);
-            B.cancelWhenPressed(climb);
-            X.whenPressed(new Deploy());
+            B.whenPressed(new Antitip(true, false));
+            B.whenReleased(new CancelAntiTip());
+            //X.whenPressed(new Deploy());
+            X.whenPressed(new Antitip(false, true));
+            X.whenReleased(new CancelAntiTip());
             BOTTOM.whileHeld(new LiftController(0));
             LEVEL1.whileHeld(new LiftController(1));
             LEVEL2.whileHeld(new LiftController(2));
             TOP.whileHeld(new LiftController(3));
             //B.whenPressed(new EncoderReadout(Robot.backOutriggers.backOutrigger));  
             BACK.whenPressed(new LiftEncoderReadout());      
-            HATCHINTAKE.whileHeld(new LiftController(3, LiftController.Intake.in)); 
-            HATCHOUTAKE.whileHeld(new LiftController(-3, LiftController.Intake.out)); 
-            OSB.whileHeld(new Antitip(true, true)); 
-            FRONTOSB.whileHeld(new Antitip(true, false)); 
-            BACKOSB.whileHeld(new Antitip(false, true)); 
+            HATCHINTAKE.whenPressed(new hatchIntake(true)); 
+            HATCHOUTAKE.whenPressed(new hatchIntake(false)); 
+            OSB.whenPressed(new Antitip(true, true)); 
+            FRONTOSB.whenPressed(new Antitip(true, false)); 
+            BACKOSB.whenPressed(new Antitip(false, true)); 
+            OSB.whenReleased(new CancelAntiTip());
+            FRONTOSB.whenReleased(new CancelAntiTip());
+            BACKOSB.whenReleased(new CancelAntiTip());
             //ALLUP.whileHeld(new); 
             //ALLDOWN.whileHeld(new); 
 
-            Robot.frontOutriggers.frontOutrigger.tare();
-            Robot.backOutriggers.backOutrigger.tare();
+            Robot.frontOutriggers.frontOutrigger1.tare();
+            Robot.frontOutriggers.frontOutrigger2.tare();
+            Robot.backOutriggers.backOutrigger1.tare();
+            Robot.backOutriggers.backOutrigger2.tare();
         }
 
 

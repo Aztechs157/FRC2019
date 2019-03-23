@@ -8,20 +8,14 @@
 package org.usfirst.frc157.FRC2019.commands;
 
 import org.usfirst.frc157.FRC2019.Robot;
-import org.usfirst.frc157.FRC2019.subsystems.Lift;
+import org.usfirst.frc157.FRC2019.commands.Antitip;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftHold extends Command {
-  public LiftHold() {
+public class CancelAntiTip extends Command {
+  public CancelAntiTip() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-  }
-  private boolean outRange()
-  {
-    double encoder = Robot.lift.encoder.getDistance();
-    return (Lift.STARTCONSTRANGE < encoder && encoder < Lift.ENDCONSTRANGE);
   }
 
   // Called just before this Command runs the first time
@@ -32,22 +26,14 @@ public class LiftHold extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.moveLift(1, Lift.moveType.hold);
-    if (Robot.oi.cargo)
-    {
-      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.in;
-    }
-    else
-    {
-      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
-    }
-    
+    Robot.frontOutriggers.tasks[Robot.frontOutriggers.antitipTask] = Antitip.nullPos;
+    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = Antitip.nullPos;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

@@ -59,7 +59,7 @@ public class processVision extends Command {
     }
     protected void executeNew() {
       //  System.out.println("Execute");
-        Robot.intake.move(0.5);
+        Robot.intake.move(0.65);
         if (Robot.vision.pixy2.read(1))
         {
             ArrayList<Target> cargo = Robot.vision.pixy2.getCurrent();
@@ -113,7 +113,7 @@ public class processVision extends Command {
             double forward = Robot.drive.drivePID.pidCalculate(260, (cargo.get(targetIndex).width+cargo.get(targetIndex).height)/2); //176 for cargo
             double turn = Robot.drive.turnPID.pidCalculate(158, cargo.get(targetIndex).x);
             
-            Robot.drive.tankDrive(forward*0.4, turn*0.4);
+            Robot.drive.tankDrive(forward*0.7, turn*0.8);
            // System.out.println("Forward: "+ forward);
         }
         else {
@@ -124,7 +124,7 @@ public class processVision extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (Math.abs(Robot.oi.joystick1.getRawAxis(1) + Robot.oi.joystick1.getRawAxis(0) + Robot.oi.joystick1.getRawAxis(4)) > 0.1) {
+        if (Math.abs(Robot.oi.joystick1.getRawAxis(5)+Robot.oi.joystick1.getRawAxis(1) + Robot.oi.joystick1.getRawAxis(0) + Robot.oi.joystick1.getRawAxis(4)) > 0.1) {
             Robot.drive.tankDrive(0, 0);
             return true;
         }

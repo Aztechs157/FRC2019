@@ -32,26 +32,32 @@ public class FrontOutriggerTarget{
   // Called repeatedly when this Command is scheduled to run
   public boolean execute() {
     
-    double frontValue = Robot.frontOutriggers.frontOutrigger.getPosition();
+    double rightValue = Robot.frontOutriggers.frontOutrigger1.getPosition();
+    double leftValue = Robot.frontOutriggers.frontOutrigger2.getPosition();
 
     //Robot.outriggers.move((isA)?(-1):(1));
     //System.out.println("\n------\nFront: " + frontValue + "\nBack: " + backValue);
-    double moveFront;
+    double moveRight;
+    double moveLeft;
     if (task.landing)
     {
-      moveFront = Robot.frontOutriggers.yawFrontLandingPID.pidCalculate(frontTarget, frontValue);
+      moveRight = Robot.frontOutriggers.yawFrontLandingPID1.pidCalculate(frontTarget, rightValue);
+      moveLeft = Robot.frontOutriggers.yawFrontLandingPID2.pidCalculate(frontTarget, leftValue);
     }
     else
     {
-      moveFront = Robot.frontOutriggers.yawFrontPID.pidCalculate(frontTarget, frontValue);
+      moveRight = Robot.frontOutriggers.yawFrontPID1.pidCalculate(frontTarget, rightValue);
+      moveLeft = Robot.frontOutriggers.yawFrontPID2.pidCalculate(frontTarget, leftValue);
     }
-    Robot.frontOutriggers.frontOutrigger.set(moveFront * frontSpeed);
+    Robot.frontOutriggers.frontOutrigger1.set(moveRight * frontSpeed);
+    Robot.frontOutriggers.frontOutrigger2.set(moveLeft * frontSpeed);
     return isFinished();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   public boolean isFinished() {
-    return Math.abs(frontTarget-Robot.frontOutriggers.frontOutrigger.getPosition())<tolerance;
+    return (Math.abs(frontTarget-Robot.frontOutriggers.frontOutrigger1.getPosition())+
+    Math.abs(frontTarget-Robot.frontOutriggers.frontOutrigger2.getPosition()))<tolerance;
   }
 
 }

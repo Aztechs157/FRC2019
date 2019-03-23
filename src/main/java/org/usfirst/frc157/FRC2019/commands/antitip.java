@@ -14,9 +14,9 @@ import org.usfirst.frc157.FRC2019.subsystems.FrontOutriggers;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Antitip extends Command {
-  public final OutriggerTask frontPos = new OutriggerTask(-34, 0, 2, 1);
-  public final OutriggerTask backPos = new OutriggerTask(-37, 0, 1, 1);
-  public final OutriggerTask nullPos = new OutriggerTask(-0, 0, 9, 1);
+  public final OutriggerTask frontPos = new OutriggerTask(-36, 0, 2, 0.85);
+  public final OutriggerTask backPos = new OutriggerTask(-36, 0, 2, 0.85);
+  public static final OutriggerTask nullPos = new OutriggerTask(0, 0, 8, 0.85);
   boolean front;
   boolean back;
   public Antitip(boolean front, boolean back) {
@@ -49,13 +49,12 @@ public class Antitip extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = nullPos;
-    Robot.backOutriggers.tasks[Robot.backOutriggers.antitipTask] = nullPos;
   }
 }

@@ -46,7 +46,7 @@ public class IntakeController extends Command {
     protected void execute() {
         double LT = Robot.oi.joystick1.getRawAxis(Robot.oi.LT);
         double RT = Robot.oi.joystick1.getRawAxis(Robot.oi.RT);
-        double movement = RT-LT;
+        double movement = LT-RT;
         double tolerance = 0.1;
         if (Robot.intake.pressurePlate.get())
         {
