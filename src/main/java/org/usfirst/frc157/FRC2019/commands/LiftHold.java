@@ -39,7 +39,7 @@ public class LiftHold extends Command {
     }
     else
     {
-      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
+      //Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
     }
     
   }

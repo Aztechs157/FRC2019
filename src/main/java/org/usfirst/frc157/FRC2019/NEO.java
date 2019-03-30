@@ -11,6 +11,7 @@ public class NEO {
     private double offset;
 	public NEO (int port, MotorType type) {
         motor = new CANSparkMax(port, type);
+        motor.setSmartCurrentLimit(40);
         ticks = 0;
         offset = 0;
     }

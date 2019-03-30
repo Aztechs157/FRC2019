@@ -14,6 +14,7 @@ import org.usfirst.frc157.FRC2019.NEO;
 import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.PID;
 import org.usfirst.frc157.FRC2019.commands.BackOutriggerController;
+import org.usfirst.frc157.FRC2019.commands.OutriggersController;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -26,7 +27,7 @@ public class BackOutrigger extends Subsystem {
   public PID yawBackPID2 = new PID(0.1, 0, 0.000002, 9999999, 9999999, 9999999, 999999);
   public PID yawBackLandingPID1 = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
   public PID yawBackLandingPID2 = new PID(0.3, 0, 0.00002, 9999999, 9999999, 9999999, 999999);
-
+  public static OutriggersController climb = new OutriggersController(-43, -55 /*-52*/, 0.65);
   public int liftTask = 0;
   public int climbTask = 1;
   public int antitipTask = 2;

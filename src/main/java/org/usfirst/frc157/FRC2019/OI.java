@@ -12,6 +12,7 @@
 package org.usfirst.frc157.FRC2019;
 
 import org.usfirst.frc157.FRC2019.commands.*;
+import org.usfirst.frc157.FRC2019.subsystems.BackOutrigger;
 import org.usfirst.frc157.FRC2019.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -76,10 +77,11 @@ public class OI {
     public JoystickButton ALLUP; 
     public JoystickButton ALLDOWN; 
     public JoystickButton SWITCH; 
+    public int LightId = 0;
     
     public boolean cargo = true;
     public static OutriggersController getOffHab2 = new OutriggersController(-54, -41, 0.65);// -40 48 for hab 2
-    public static OutriggersController climb = new OutriggersController(-43, -51, 0.65);
+    
     public int LT = 2;
     public int RT = 3;
 
@@ -92,6 +94,7 @@ public class OI {
         R1.whenPressed(new processVision());
         SWITCH.whenPressed(new setCargo(true));
         SWITCH.whenReleased(new setCargo(false));
+
         if (Robot.key.get())
         {
             HATCHINTAKE = new JoystickButton(joystick2, 15); 
@@ -111,7 +114,7 @@ public class OI {
             LEVEL2 = new JoystickButton(joystick2, 12);
             TOP = new JoystickButton(joystick2, 13);
             Y.whenPressed(new OutriggerLand(0.25));
-            A.whenPressed(climb);//-40 48 for hab 2
+            A.whenPressed(BackOutrigger.climb);//-40 48 for hab 2
             A.cancelWhenPressed(getOffHab2);
             B.whenPressed(new Antitip(true, false));
             B.whenReleased(new CancelAntiTip());
@@ -133,7 +136,7 @@ public class OI {
             FRONTOSB.whenReleased(new CancelAntiTip());
             BACKOSB.whenReleased(new CancelAntiTip());
             //ALLUP.whileHeld(new); 
-            //ALLDOWN.whileHeld(new); 
+            ALLDOWN.whileHeld(new LiftController(4, false)); 
 
             Robot.frontOutriggers.frontOutrigger1.tare();
             Robot.frontOutriggers.frontOutrigger2.tare();

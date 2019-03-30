@@ -65,7 +65,7 @@ public class IntakeController extends Command {
         }
         else
         {
-            Robot.intake.move(-LT);
+            Robot.intake.move(-RT);
         }
         
     }

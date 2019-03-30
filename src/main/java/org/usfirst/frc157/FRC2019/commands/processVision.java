@@ -124,7 +124,7 @@ public class processVision extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (Math.abs(Robot.oi.joystick1.getRawAxis(5)+Robot.oi.joystick1.getRawAxis(1) + Robot.oi.joystick1.getRawAxis(0) + Robot.oi.joystick1.getRawAxis(4)) > 0.1) {
+        if (Math.abs(Robot.oi.joystick1.getRawAxis(5)+Robot.oi.joystick1.getRawAxis(1) + Robot.oi.joystick1.getRawAxis(0) + Robot.oi.joystick1.getRawAxis(4)) > 0.25) {
             Robot.drive.tankDrive(0, 0);
             return true;
         }

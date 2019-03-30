@@ -30,6 +30,8 @@ public class setCargo extends Command {
   protected void execute() {
     Robot.oi.cargo = val;
     System.out.println(Robot.oi.cargo);
+    //Robot.oi.joystick2.setOutput(Robot.oi.LightId, Robot.oi.cargo);
+    //Robot.oi.joystick2.setOutput(Robot.oi.LightId2, !Robot.oi.cargo);
   }
 
   // Make this return true when this Command no longer needs to run execute()

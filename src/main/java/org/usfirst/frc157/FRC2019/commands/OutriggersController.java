@@ -9,7 +9,9 @@
 // it from being updated in the future.
 
 package org.usfirst.frc157.FRC2019.commands;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
@@ -49,6 +51,7 @@ public class OutriggersController extends Command {
     protected void initialize() {
        // this.frontTarget = Robot.frontOutriggers.frontOutrigger.getPosition();;
         //this.backTarget = Robot.backOutriggers.backOutrigger.getPosition();
+        System.out.println("Climbing...");
     }
 
     // Called repeatedly when this Command is scheduled to run

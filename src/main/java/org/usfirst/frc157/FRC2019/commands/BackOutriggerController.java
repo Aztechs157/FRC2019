@@ -7,6 +7,7 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
+
 import org.usfirst.frc157.FRC2019.OutriggerTask;
 import org.usfirst.frc157.FRC2019.Robot;
 
@@ -28,6 +29,10 @@ public class BackOutriggerController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+
+
+
     Timer time = new Timer();
     time.reset();
     OutriggerTask[] tasks = Robot.backOutriggers.tasks;

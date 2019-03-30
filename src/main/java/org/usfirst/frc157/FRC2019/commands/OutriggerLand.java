@@ -25,6 +25,7 @@ public class OutriggerLand extends Command {
   @Override
   protected void initialize() {
     this.finished = false;
+    System.out.println("landing...");
   }
 
   // Called repeatedly when this Command is scheduled to run
