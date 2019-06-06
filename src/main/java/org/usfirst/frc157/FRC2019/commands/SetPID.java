@@ -8,40 +8,27 @@
 package org.usfirst.frc157.FRC2019.commands;
 
 import org.usfirst.frc157.FRC2019.Robot;
-import org.usfirst.frc157.FRC2019.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class LiftHold extends Command {
-  public LiftHold() {
+public class SetPID extends Command {
+  public SetPID() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-  }
-  private boolean outRange()
-  {
-    double encoder = Robot.lift.encoder.getDistance();
-    return (Lift.STARTCONSTRANGE < encoder && encoder < Lift.ENDCONSTRANGE);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.hatchIntakeSub.P = SmartDashboard.getNumber("DB/Slider 0", 0.0);
+    Robot.hatchIntakeSub.I = SmartDashboard.getNumber("DB/Slider 1", 0.0);
+    Robot.hatchIntakeSub.D = SmartDashboard.getNumber("DB/Slider 2", 0.0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.moveLift(1, Lift.moveType.hold);
-    if (Robot.oi.cargo)
-    {
-      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.in;
-    }
-    else
-    {
-      // Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
-    }
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()

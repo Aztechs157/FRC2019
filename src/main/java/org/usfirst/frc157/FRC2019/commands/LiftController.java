@@ -34,6 +34,7 @@ public class LiftController extends Command {
     public static final int OUTRIGGERRANGE = -13;
     public boolean useLatch = true;
     int target = 0;
+    private int count = 0;
     double[] cargoTarget = new double[]{Lift.BOTTOM, Lift.CARGO1, Lift.CARGO2, Lift.TOP, Lift.HATCH2};
     double[] hatchTarget = new double[]{Lift.HATCHINTAKE, Lift.HATCH1, Lift.HATCH2, Lift.HATCH3};
 
@@ -92,6 +93,10 @@ public class LiftController extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        if (count%10 == 0) {
+          //  System.out.println("Lift: "+ Robot.lift.encoder.getDistance());
+        }
+        count++;
         double movement = target-Robot.lift.encoder.getDistance();
         tolerance = 0;
         if (useLatch && !Robot.oi.cargo )
@@ -110,7 +115,7 @@ public class LiftController extends Command {
                 //Robot.lift.moveLift(0.85, Lift.moveType.hold);
             }
             Robot.lift.moveLift(1, hatchTarget[target]);
-            Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = hatchPos;
+            //Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = hatchPos;
         }
         else
         {

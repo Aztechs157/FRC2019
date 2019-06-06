@@ -10,6 +10,7 @@ package org.usfirst.frc157.FRC2019.commands;
 import org.usfirst.frc157.FRC2019.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class setCargo extends Command {
   private boolean val;
@@ -30,8 +31,9 @@ public class setCargo extends Command {
   protected void execute() {
     Robot.oi.cargo = val;
     System.out.println(Robot.oi.cargo);
-    //Robot.oi.joystick2.setOutput(Robot.oi.LightId, Robot.oi.cargo);
-    //Robot.oi.joystick2.setOutput(Robot.oi.LightId2, !Robot.oi.cargo);
+    SmartDashboard.putBoolean("DB/LED 0", Robot.oi.cargo);
+    //Robot.oi.joystick2.setOutput(Robot.oi.RedLIGHT, Robot.oi.cargo);
+    //Robot.oi.joystick2.setOutput(Robot.oi.GreenLight, !Robot.oi.cargo);
   }
 
   // Make this return true when this Command no longer needs to run execute()

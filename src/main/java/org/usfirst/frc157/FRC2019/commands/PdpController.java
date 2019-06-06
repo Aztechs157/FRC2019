@@ -7,41 +7,62 @@
 
 package org.usfirst.frc157.FRC2019.commands;
 
+
+
 import org.usfirst.frc157.FRC2019.Robot;
-import org.usfirst.frc157.FRC2019.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftHold extends Command {
-  public LiftHold() {
+public class PdpController extends Command {
+  int counter;
+  public final int loopCount = 50;
+  double[] sums = new double[Robot.pdp.channels.length];
+  double[] peaks = new double[Robot.pdp.channels.length];
+
+  public PdpController() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-  }
-  private boolean outRange()
-  {
-    double encoder = Robot.lift.encoder.getDistance();
-    return (Lift.STARTCONSTRANGE < encoder && encoder < Lift.ENDCONSTRANGE);
+    requires(Robot.pdp);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    counter = 0;
+    sums = new double[Robot.pdp.channels.length];
+    peaks = new double[Robot.pdp.channels.length];
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.moveLift(1, Lift.moveType.hold);
-    if (Robot.oi.cargo)
+    for (int i = 0; i < Robot.pdp.channels.length; i++)
     {
-      Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.in;
+      double current = Robot.pdp.powerDistro.getCurrent(Robot.pdp.channels[i]);
+      sums[i] += current;
+      if (current > peaks[i])
+      {
+        peaks[i] = current;
+      }
+    }
+    if (counter < loopCount)
+    {
+      counter++;
     }
     else
     {
-      // Robot.frontOutriggers.tasks[Robot.frontOutriggers.liftTask] = LiftController.hatchPos;  
+      for (int i = 0; i < Robot.pdp.channels.length; i++)
+      {
+        System.out.println("================");
+        System.out.println("PDP channel "+Robot.pdp.channels[i]);
+        System.out.println("peak    - "+peaks[i]);
+        System.out.println("average - "+(sums[i]/(double)loopCount));
+      }
+      System.out.println("================");
+      counter = 0;
+      sums = new double[Robot.pdp.channels.length];
+      peaks = new double[Robot.pdp.channels.length];
     }
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()

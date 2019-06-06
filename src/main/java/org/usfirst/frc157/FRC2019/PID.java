@@ -3,9 +3,9 @@ package org.usfirst.frc157.FRC2019;
 import edu.wpi.first.wpilibj.Timer;
 
 public class PID {
-	private double p;
-	private double i;
-	private double d;
+	public double p;
+	public double i;
+	public double d;
 	private double epsilonInner;
 	private double epsilonOuter;
 	private double lastTime;

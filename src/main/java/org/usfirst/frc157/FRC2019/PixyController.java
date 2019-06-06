@@ -29,7 +29,7 @@ public class PixyController extends Thread {
     public PixyController(Port port, int address, int signatures)
     {
         this.buffer = new byte[2];
-        //this.cam = new I2C(port, address);
+        this.cam = new I2C(port, address);
         this.signatures = signatures;
         this.targets = new ArrayList<Target>();
     }
@@ -37,19 +37,20 @@ public class PixyController extends Thread {
     {
         byte[] dump = new byte[10];
         try
-        {
+        {   
             byte[] targetBytes = new byte[12];
             int w, lastw;
             lastw = 0xffff;
             while (!Thread.interrupted())
             {
-                boolean testing = this.cam.readOnly(this.buffer, 2);
+                this.cam.readOnly(this.buffer, 2);
                 w = convertToShort(this.buffer[0], this.buffer[1]);
                 if (w == 0xaa55 && lastw == 0xaa55)
                 {
                     lastw = 0;
                     this.targets = new ArrayList<Target>();
                     do {
+                        System.out.println("test");
                         this.cam.readOnly(targetBytes, 12);
                         //read frame
                         Target temp = new Target();
@@ -66,7 +67,7 @@ public class PixyController extends Thread {
                         {
                         synchronized(targets){this.targets.add(temp);}
                         }
-                        testing = this.cam.readOnly(this.buffer, 2);
+                        this.cam.readOnly(this.buffer, 2);
                         w = convertToShort(this.buffer[0], this.buffer[1]);
                     }while (w == 0xaa55);
                 }
@@ -97,9 +98,9 @@ public class PixyController extends Thread {
     }
     public ArrayList<Target> read(int signature)
     {
+        ArrayList<Target> retval = new ArrayList<Target>();
         synchronized(this.targets)
         {
-            ArrayList<Target> retval = new ArrayList<Target>();
             ArrayList<Target> targetsStored = this.targets;
             ArrayList<Integer> deleted = new ArrayList<Integer>();
             for (int i = 0; i < targetsStored.size(); i++)
@@ -115,8 +116,9 @@ public class PixyController extends Thread {
                 this.targets.remove(deleted.get(i));
             }
 
-            return retval;
+            
         }
+        return retval;
     }
     public ArrayList<Target> readAll()
     {
