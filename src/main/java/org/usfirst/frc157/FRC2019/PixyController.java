@@ -50,7 +50,7 @@ public class PixyController extends Thread {
                     lastw = 0;
                     this.targets = new ArrayList<Target>();
                     do {
-                        System.out.println("test");
+                        //System.out.println("test");
                         this.cam.readOnly(targetBytes, 12);
                         //read frame
                         Target temp = new Target();
